@@ -115,14 +115,16 @@ def remove_order(order_list):
             if has_numbers(ordr):
                 num_of_order = int(re.findall(r'\d+', ordr)[0])
                 ordr = ''.join([i for i in ordr if not i.isdigit()]).strip()
-                if is_valid_order(ordr):
-                    print(num_of_order, ordr, "orders removed")
+                if is_valid_order(ordr) and ordr in order_list:
+                    print(ordr, "orders removed")
                     for i in range(num_of_order):
-                        order_list.remove(ordr)
+                        if ordr in order_list:
+                            order_list.remove(ordr)
                 else:
                     print("\n", ordr, "not in the order or was misspelled\n")
-            elif is_valid_order(ordr):
+            elif is_valid_order(ordr) and ordr in order_list:
                 order_list.remove(ordr)
+                print(ordr,"was removed")
             else:
                 print("\n", ordr, "not in the order or was misspelled\n")
             ordr = input("Would you like to 'remove' another item or 'Exit' to go back?").lower().strip()
